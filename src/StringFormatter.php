@@ -11,7 +11,7 @@ class StringFormatter
 
     /**
      * @param string $input
-     * @param array $params
+     * @param array<string, mixed> $params
      * @param bool $silent
      * @param string $regexp
      * @return string
@@ -22,8 +22,7 @@ class StringFormatter
         array $params,
         bool $silent = false,
         string $regexp = self::DEFAULT_REGEXP
-    ): string
-    {
+    ): string {
         $keyMap = static::findKeys($input, $regexp);
 
         if(!$silent && count($notFoundKeys = array_diff(array_values($keyMap), array_keys($params)))) {
@@ -49,7 +48,7 @@ class StringFormatter
 
     /**
      * @param string $input
-     * @param array $params
+     * @param array<string, mixed> $params
      * @param string $regexp
      * @return string
      */
@@ -57,8 +56,7 @@ class StringFormatter
         string $input,
         array $params,
         string $regexp = self::DEFAULT_REGEXP
-    ): string
-    {
+    ): string {
         return static::format($input, $params, true, $regexp);
     }
 
@@ -70,6 +68,10 @@ class StringFormatter
     protected static function findKeys(string $input, string $regexp): array
     {
         preg_match_all($regexp, $input, $matches);
-        return array_combine($matches[0] ?? [], $matches[1] ?? []);
+        $result = array_combine($matches[0] ?? [], $matches[1] ?? []);
+        if($result === false) {
+            return [];
+        }
+        return $result;
     }
 }
