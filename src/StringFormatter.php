@@ -69,7 +69,7 @@ class StringFormatter
     {
         preg_match_all($regexp, $input, $matches);
         $result = array_combine($matches[0] ?? [], $matches[1] ?? []);
-        if($result === false) {
+        if(!$result) {
             return [];
         }
         return $result;
