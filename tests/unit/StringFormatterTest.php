@@ -86,14 +86,14 @@ class StringFormatterTest extends \Codeception\Test\Unit
             $this->assertEquals(['work_position'], $e->getData());
         }
 
-        $input = 'Hello, {name}! Your work_position is {work_position}.';
-        $params = ['bad' => 'kay'];
+        $input = 'Hello, {name}! Your work_position is {work.position}.';
+        $params = ['bad' => 'kay', 'work' => ['name' => 'Company name inc.']];
         try {
             StringFormatter::format($input, $params);
             $this->expectError();
         } catch(StringFormatterException $e) {
             $this->assertEquals(StringFormatterException::ERROR_KEYS_NOT_FOUND, $e->getCode());
-            $this->assertEquals(['name', 'work_position'], $e->getData());
+            $this->assertEquals(['name', 'work.position'], $e->getData());
         }
     }
 
