@@ -24,6 +24,23 @@ class StringFormatterTest extends \Codeception\Test\Unit
         $this->assertEquals('Hello, Anna! Your work_position is programmer.', $result);
     }
 
+    /**
+     * @return void
+     * @throws StringFormatterException
+     */
+    public function testEmpty()
+    {
+        $input = 'Hello! Your position is default.';
+        $params = ['name' => 'Anna', 'position' => 'programmer'];
+        $result = StringFormatter::format($input, $params);
+        $this->assertEquals('Hello! Your position is default.', $result);
+
+        $input = 'Hello! Your position is default.';
+        $params = [];
+        $result = StringFormatter::format($input, $params);
+        $this->assertEquals('Hello! Your position is default.', $result);
+    }
+
     public function testUtf()
     {
         $input = 'Привет, {name}! Твоя должность {work_position}.';
