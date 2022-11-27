@@ -33,6 +33,17 @@ $result = StringFormatter::format($input, $params);
 echo $result; // Hello, Anna! Your position is programmer.
 ```
 
+#### Usage with nested params
+
+```php
+use Smoren\StringFormatter\StringFormatter;
+
+$input = 'Hello, {name}! Your position is {job.position}.';
+$params = ['name' => 'Anna', 'job' => ['position' => 'programmer', 'salary' => 2000]];
+$result = StringFormatter::format($input, $params);
+echo $result; // Hello, Anna! Your position is programmer.
+```
+
 #### Custom regexp usage
 
 ```php

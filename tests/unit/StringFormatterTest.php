@@ -11,7 +11,7 @@ class StringFormatterTest extends \Codeception\Test\Unit
      * @return void
      * @throws StringFormatterException
      */
-    public function testNormal()
+    public function testBasic()
     {
         $input = 'Hello, {name}! Your position is {position}.';
         $params = ['name' => 'Anna', 'position' => 'programmer'];
@@ -22,6 +22,23 @@ class StringFormatterTest extends \Codeception\Test\Unit
         $params = ['name' => 'Anna', 'work_position' => 'programmer', 'extra' => 123];
         $result = StringFormatter::format($input, $params);
         $this->assertEquals('Hello, Anna! Your work_position is programmer.', $result);
+    }
+
+    /**
+     * @return void
+     * @throws StringFormatterException
+     */
+    public function testNested()
+    {
+        $input = 'Hello, {name}! Your position is {job.position}.';
+        $params = ['name' => 'Anna', 'job' => ['position' => 'programmer', 'salary' => 2000]];
+        $result = StringFormatter::format($input, $params);
+        $this->assertEquals('Hello, Anna! Your position is programmer.', $result);
+
+        $input = 'Hello, {name}! Your position is {job/position}.';
+        $params = ['name' => 'Anna', 'job' => ['position' => 'programmer', 'salary' => 2000]];
+        $result = StringFormatter::format($input, $params, false, '/\{([A-Za-z0-9\-_\.\/]+)\}/', '/');
+        $this->assertEquals('Hello, Anna! Your position is programmer.', $result);
     }
 
     /**

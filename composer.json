@@ -11,7 +11,8 @@
   ],
   "require": {
     "php": ">=7.2.0",
-    "smoren/extended-exceptions": "^1.0"
+    "smoren/extended-exceptions": "^1.0",
+    "smoren/nested-accessor": "^0.1.0"
   },
   "require-dev": {
     "codeception/codeception": "^4.2.1",
