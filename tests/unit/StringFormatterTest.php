@@ -56,6 +56,11 @@ class StringFormatterTest extends \Codeception\Test\Unit
         $params = [];
         $result = StringFormatter::format($input, $params);
         $this->assertEquals('Hello! Your position is default.', $result);
+
+        $input = '';
+        $params = [];
+        $result = StringFormatter::format($input, $params);
+        $this->assertEquals('', $result);
     }
 
     public function testUtf()
