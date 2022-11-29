@@ -28,6 +28,18 @@ class StringFormatterTest extends \Codeception\Test\Unit
      * @return void
      * @throws StringFormatterException
      */
+    public function testRepeat()
+    {
+        $input = 'Hello, {name}! Your position is {position}. And your name is {name}.';
+        $params = ['name' => 'Anna', 'position' => 'programmer'];
+        $result = StringFormatter::format($input, $params);
+        $this->assertEquals('Hello, Anna! Your position is programmer. And your name is Anna.', $result);
+    }
+
+    /**
+     * @return void
+     * @throws StringFormatterException
+     */
     public function testNested()
     {
         $input = 'Hello, {name}! Your position is {job.position}.';
