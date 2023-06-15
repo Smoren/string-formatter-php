@@ -2,8 +2,8 @@
 
 namespace Smoren\StringFormatter;
 
-use Smoren\NestedAccessor\Components\NestedAccessor;
-use Smoren\NestedAccessor\Exceptions\NestedAccessorException;
+use Smoren\Schemator\Components\NestedAccessor;
+use Smoren\Schemator\Exceptions\PathNotExistException;
 
 /**
  * StringFormatter class
@@ -37,7 +37,7 @@ class StringFormatter
         foreach($keyMap as $key => &$path) {
             try {
                 $path = $accessor->get($path);
-            } catch(NestedAccessorException $e) {
+            } catch(PathNotExistException $e) {
                 $notFoundKeys[] = $path;
                 unset($keyMap[$key]);
             }
